@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MenuLateralComponent } from './components/menu-lateral/menu-lateral.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, MenuLateralComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, MenuLateralComponent, RouterModule],
   template: `
     <div class="flex flex-col h-screen overflow-hidden">
 
