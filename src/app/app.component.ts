@@ -10,25 +10,36 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet, HeaderComponent, FooterComponent, MenuLateralComponent, RouterModule],
   template: `
-    <div class="flex flex-col h-screen overflow-hidden">
+    <div class="flex flex-col overflow-hidden min-h-screen">
 
+      <!-- HEADER -->
       <mf-layout-header class="flex-shrink-0"></mf-layout-header>
 
+      <!-- CONTENIDO -->
       <div class="flex flex-1 overflow-y-auto">
 
-        <mf-layout-menu-lateral class="flex-shrink-0"></mf-layout-menu-lateral>
+        <!-- MENU LATERAL DESKTOP -->
+        <div class="hidden md:flex flex-shrink-0">
+          <mf-layout-menu-lateral></mf-layout-menu-lateral>
+        </div>
 
-        <div class="flex-1 flex flex-col min-h-full">
-          <main class="flex-1 p-6 bg-gray-50"> <router-outlet></router-outlet>
-            <div class="font-prospero font-bold text-[54px] h-[800px] leading-[100%] tracking-normal align-middle text-darktext">
+        <!-- CONTENIDO PRINCIPAL -->
+        <div class="flex-1 flex flex-col min-h-full">          
+          <!-- MAIN CONTENT -->
+          <main class="flex-1 p-6 bg-gray-50">
+            <router-outlet></router-outlet>
+            <div class="font-prospero font-bold text-[54px] h-[800px] leading-[100%] tracking-normal text-darktext">
               Portal Clientes
             </div>
           </main>
+
+          <!-- FOOTER -->
           <mf-layout-footer class="flex-shrink-0"></mf-layout-footer>
+
         </div>
       </div>
     </div>
   `,
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent { }

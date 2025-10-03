@@ -4,14 +4,14 @@ import { CommonModule, NgClass, NgIf, NgFor } from '@angular/common';
 interface SubMenuItem {
   name: string;
   route: string;
-  selected: boolean; 
+  selected: boolean;
 }
 
 interface MenuItem {
   name: string;
   route: string;
-  selected: boolean; 
-  open: boolean;    
+  selected: boolean;
+  open: boolean;
   subItems?: SubMenuItem[];
 }
 
@@ -26,11 +26,11 @@ export class MenuLateralComponent {
   //Items y Subitems del menu
   menuItems: MenuItem[] = [
     { name: 'Inicio', route: '/inicio', selected: true, open: false },
-    { 
-      name: 'Gestión de envíos', 
-      route: '/gestion', 
-      selected: false, 
-      open: false, 
+    {
+      name: 'Gestión de envíos',
+      route: '/gestion',
+      selected: false,
+      open: false,
       subItems: [
         { name: 'Mis envíos', route: '/gestion/mis-envios', selected: false },
         { name: 'Sigue tu envío', route: '/gestion/sigue', selected: false },
@@ -39,31 +39,35 @@ export class MenuLateralComponent {
         { name: 'Recogidas', route: '/gestion/recogidas', selected: false },
       ]
     },
-    { 
-      name: 'Inter Pay', 
-      route: '/inter-pay', 
-      selected: false, 
-      open: false, 
+    {
+      name: 'Inter Pay',
+      route: '/inter-pay',
+      selected: false,
+      open: false,
       subItems: [
         { name: 'Descuento personalizado', route: '/inter-pay/descuento', selected: false },
         { name: 'Recargar', route: '/inter-pay/recargar', selected: false },
         { name: 'Transferir', route: '/inter-pay/transferir', selected: false },
       ]
     },
-    { name: 'Reportes', route: '/reportes', selected: false, open: false, subItems: [ 
-      { name: 'Descuento personalizado', route: '/reportes/descuento', selected: false },
+    {
+      name: 'Reportes', route: '/reportes', selected: false, open: false, subItems: [
+        { name: 'Descuento personalizado', route: '/reportes/descuento', selected: false },
         { name: 'Recargar', route: '/reportes/recargar', selected: false },
         { name: 'Transferir', route: '/reportes/transferir', selected: false },
-    ] },
-    { name: 'Soporte', route: '/soporte', selected: false, open: false, subItems: [ 
-      { name: 'Servicio al cliente', route: '/Soporte/descuento', selected: false },
+      ]
+    },
+    {
+      name: 'Soporte', route: '/soporte', selected: false, open: false, subItems: [
+        { name: 'Servicio al cliente', route: '/Soporte/descuento', selected: false },
         { name: 'Soporte técnico', route: '/Soporte/recargar', selected: false },
         { name: 'PQR', route: '/Soporte/transferir', selected: false },
-     ] },
+      ]
+    },
     { name: 'Oficinas cercanas', route: '/oficinas', selected: false, open: false },
     { name: 'Configuración', route: '/configuracion', selected: false, open: false },
   ];
-  
+
   //Limpia el estado 'selected' de todos los elementos (principal y submenús).   
   clearAllSelections(): void {
     this.menuItems.forEach(i => {
@@ -84,15 +88,14 @@ export class MenuLateralComponent {
    * @param item El elemento de menú principal.
    */
   toggleDropdown(item: MenuItem): void {
-    
-    // 1. Limpiamos todas las selecciones.
+
+    // Limpiamos todas las selecciones.
     this.clearAllSelections();
-    
-    // 2. Si el ítem actual tiene submenús, manejamos el despliegue/plegado.
+
+    // Si el ítem actual tiene submenús, manejamos el despliegue/plegado.
     if (item.subItems) {
-        
+
       // ACORDEÓN PARCIAL: Cierra todos los demás menús antes de alternar el actual.
-      // Así, al hacer clic en 'Gestión' luego en 'Inter Pay', 'Gestión' se pliega.
       this.menuItems.forEach(i => {
         // Solo cerramos los demás si no son el elemento actual.
         if (i !== item) {
@@ -102,15 +105,15 @@ export class MenuLateralComponent {
 
       // Alternamos el estado de despliegue del actual.
       item.open = !item.open;
-      
+
     } else {
-      // 3. Colapsa TODOS los submenús abiertos.
+      // Colapsa TODOS los submenús abiertos.
       this.collapseAllDropdowns();
 
-      // Aquí iría el Router.navigate(item.route)
+      // Aquí iría el Router.navigate(item.route) para cada una de las opciones del menú principal sin submenús.
     }
 
-    // 4. Establecemos la selección en el ítem principal.
+    // Establecemos la selección en el ítem principal.
     item.selected = true;
   }
 
@@ -120,24 +123,26 @@ export class MenuLateralComponent {
    * @param subItem El subelemento seleccionado.
    */
   selectSubItem(parentItem: MenuItem, subItem: SubMenuItem): void {
-      
-    // 1. Limpiamos todas las selecciones.
+
+    // Limpiamos todas las selecciones.
     this.clearAllSelections();
-    
-    // 2. Lógica del Submenú (mantener desplegado el padre):
+
+    // Lógica del Submenú (mantener desplegado el padre):
     this.menuItems.forEach(i => {
-        if (i !== parentItem) {
-            i.open = false;
-        }
+      if (i !== parentItem) {
+        i.open = false;
+      }
     });
 
-    // 3. Marcamos el subelemento como seleccionado.
+    // Marcamos el subelemento como seleccionado.
     subItem.selected = true;
 
-    // 4. Marcamos el padre como seleccionado y FUERZA que se mantenga desplegado.
+    // Marcamos el padre como seleccionado y FUERZA que se mantenga desplegado.
     parentItem.selected = true;
     parentItem.open = true;
 
     // Aquí iría el Router.navigate(subItem.route) para cada una de las rutas del submenú.
   }
 }
+
+

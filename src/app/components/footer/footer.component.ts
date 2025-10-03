@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class FooterComponent {
 
-  // Estado para controlar la visibilidad del panel/modal
+  // Estado para controlar la visibilidad del modal
   policyDrawerOpen: boolean = false;
 
   // Propiedad para almacenar el texto de la política
