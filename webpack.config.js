@@ -7,7 +7,7 @@ module.exports = withModuleFederationPlugin({
   exposes: {
     './Header': './src/app/components/header/header.component.ts',
     './Footer': './src/app/components/footer/footer.component.ts',
-    './Sidebar': './src/app/components/sidebar/sidebar.component.ts',
+    './MenuLateral': './src/app/components/menu-lateral/menu-lateral.component.ts',
   },
 
   shared: {
