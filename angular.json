@@ -58,7 +58,7 @@
 								"output": "."
 							},
 							{
-								"glob": "favicon.ico",
+								"glob": "InterRapidisimo.ico",
 								"input": "src",
 								"output": "/"
 							}

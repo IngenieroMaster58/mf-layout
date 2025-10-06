@@ -1,85 +1,67 @@
-<footer class="bg-[#F9F9F9] text-gray-700 p-0 flex justify-between items-center h-16 w-full"
-    style="height: 64px; padding-top: 8px; padding-bottom: 8px; padding-left: 56px; padding-right: 56px;">
-
-    <button (click)="openPolicyDrawer()" class="text-sm font-semibold text-[#212529] hover:underline cursor-pointer">
-        Política de datos
-    </button>
-
-    <div class="flex items-center space-x-[29px]">
-
-        <a (click)="goToSocial('YouTube')" href="javascript:void(0)" aria-label="YouTube">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M17.812 5.01663H6.145C3.855 5.01663 2 6.85163 2 9.11563V14.8836C2 17.1476 3.856 18.9836 6.145 18.9836H17.812C20.102 18.9836 21.957 17.1476 21.957 14.8836V9.11563C21.957 6.85163 20.101 5.01562 17.812 5.01562V5.01663ZM15.009 12.2796L9.552 14.8546C9.51872 14.8707 9.48192 14.878 9.44503 14.876C9.40815 14.874 9.37237 14.8626 9.34103 14.8431C9.3097 14.8235 9.28382 14.7964 9.2658 14.7641C9.24779 14.7318 9.23822 14.6956 9.238 14.6586V9.34963C9.23867 9.3125 9.24872 9.27614 9.26722 9.24395C9.28573 9.21176 9.31208 9.18477 9.34382 9.1655C9.37556 9.14624 9.41167 9.13532 9.44877 9.13377C9.48587 9.13221 9.52276 9.14008 9.556 9.15663L15.014 11.8916C15.0504 11.9098 15.0809 11.9378 15.102 11.9725C15.1232 12.0071 15.1341 12.0471 15.1336 12.0877C15.1331 12.1283 15.1211 12.168 15.0991 12.2021C15.077 12.2362 15.0458 12.2634 15.009 12.2806V12.2796Z"
-                    fill="#212529" />
-            </svg>
-        </a>
-
-        <a (click)="goToSocial('Facebook')" href="javascript:void(0)" aria-label="Facebook">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M9.04623 5.865V8.613H7.03223V11.973H9.04623V21.959H13.1802V11.974H15.9552C15.9552 11.974 16.2152 10.363 16.3412 8.601H13.1972V6.303C13.1972 5.96 13.6472 5.498 14.0932 5.498H16.3472V2H13.2832C8.94323 2 9.04623 5.363 9.04623 5.865Z"
-                    fill="#212529" />
-            </svg>
-        </a>
-
-        <a (click)="goToSocial('Instagram')" href="javascript:void(0)" aria-label="Instagram">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M16.017 2H7.947C6.37015 2.00185 4.85844 2.62914 3.74353 3.74424C2.62862 4.85933 2.00159 6.37115 2 7.948L2 16.018C2.00185 17.5948 2.62914 19.1066 3.74424 20.2215C4.85933 21.3364 6.37115 21.9634 7.948 21.965H16.018C17.5948 21.9631 19.1066 21.3359 20.2208 20.2208C21.3357 19.1057 21.9631 17.5938 21.965 16.017V7.947C21.9631 6.37015 21.3359 4.85844 20.2208 3.74353C19.1057 2.62862 17.5938 2.00159 16.017 2V2ZM19.957 16.017C19.957 16.5344 19.8551 17.0468 19.6571 17.5248C19.4591 18.0028 19.1689 18.4371 18.803 18.803C18.4371 19.1689 18.0028 19.4591 17.5248 19.6571C17.0468 19.8551 16.5344 19.957 16.017 19.957H7.947C6.90222 19.9567 5.90032 19.5415 5.16165 18.8026C4.42297 18.0638 4.008 17.0618 4.008 16.017V7.947C4.00827 6.90222 4.42349 5.90032 5.16235 5.16165C5.90122 4.42297 6.90322 4.008 7.948 4.008H16.018C17.0628 4.00827 18.0647 4.42349 18.8034 5.16235C19.542 5.90122 19.957 6.90322 19.957 7.948V16.018V16.017Z"
-                    fill="#212529" />
-                <path
-                    d="M11.9823 6.81934C10.6137 6.82145 9.30184 7.36612 8.33421 8.33394C7.36658 9.30176 6.82216 10.6138 6.82031 11.9823C6.8219 13.3513 7.36634 14.6637 8.33421 15.6317C9.30209 16.5998 10.6144 17.1445 11.9833 17.1463C13.3524 17.1447 14.665 16.6002 15.6331 15.6321C16.6012 14.664 17.1457 13.3514 17.1473 11.9823C17.1452 10.6134 16.6003 9.30122 15.632 8.33353C14.6637 7.36584 13.3512 6.82166 11.9823 6.82034V6.81934ZM11.9823 15.1383C11.1456 15.1383 10.3431 14.8059 9.75139 14.2143C9.15971 13.6226 8.82731 12.8201 8.82731 11.9833C8.82731 11.1466 9.15971 10.3441 9.75139 9.75241C10.3431 9.16074 11.1456 8.82834 11.9823 8.82834C12.8191 8.82834 13.6216 9.16074 14.2132 9.75241C14.8049 10.3441 15.1373 11.1466 15.1373 11.9833C15.1373 12.8201 14.8049 13.6226 14.2132 14.2143C13.6216 14.8059 12.8191 15.1383 11.9823 15.1383Z"
-                    fill="#212529" />
-                <path
-                    d="M17.1559 8.09509C17.8391 8.09509 18.3929 7.54127 18.3929 6.85809C18.3929 6.17492 17.8391 5.62109 17.1559 5.62109C16.4728 5.62109 15.9189 6.17492 15.9189 6.85809C15.9189 7.54127 16.4728 8.09509 17.1559 8.09509Z"
-                    fill="#212529" />
-            </svg>
-        </a>
-
-        <a (click)="goToSocial('LinkedIn')" href="javascript:void(0)" aria-label="LinkedIn">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M21.959 13.7194V21.0984H17.681V14.2134C17.681 12.4834 17.062 11.3034 15.514 11.3034C14.332 11.3034 13.628 12.0994 13.319 12.8684C13.206 13.1434 13.177 13.5264 13.177 13.9114V21.0984H8.897C8.897 21.0984 8.955 9.43837 8.897 8.22937H13.177V10.0534L13.149 10.0954H13.177V10.0534C13.745 9.17837 14.76 7.92737 17.033 7.92737C19.848 7.92737 21.959 9.76737 21.959 13.7194ZM4.421 2.02637C2.958 2.02637 2 2.98637 2 4.24937C2 5.48437 2.93 6.47337 4.365 6.47337H4.393C5.886 6.47337 6.813 5.48437 6.813 4.24937C6.787 2.98637 5.887 2.02637 4.422 2.02637H4.421ZM2.254 21.0984H6.532V8.22937H2.254V21.0984Z"
-                    fill="#212529" />
-            </svg>
-        </a>
+<footer class="w-full h-16 px-14 py-2 left-0 top-0  bg-stone-50 inline-flex justify-between items-center">
+    <div class="w-24 justify-end items-center gap-2">
+        <div data-con-icono="false" data-estado="Principal" data-tipo="Desktop"
+            class="flex-1 flex justify-start items-center gap-1">
+            <button (click)="openPolicyDrawer()"
+                class="justify-start text-neutral-800 text-xs font-semibold font-['Prospero-Semibold']">Política de
+                datos</button>
+        </div>
+    </div>
+    <div class="flex justify-center items-end gap-6">
+        <div class="w-6 h-6 relative">
+            <a (click)="goToSocial('YouTube')" href="javascript:void(0)" aria-label="YouTube">
+                <img src="assets/imagenes/youtube.svg" alt="Youtube">
+            </a>
+        </div>
+        <div class="w-6 h-6 relative">
+            <a (click)="goToSocial('Facebook')" href="javascript:void(0)" aria-label="Facebook">
+                <img src="assets/imagenes/facebook.svg" alt="Facebook">
+            </a>
+        </div>
+        <div class="w-6 h-6 relative">
+            <a (click)="goToSocial('Instagram')" href="javascript:void(0)" aria-label="Instagram">
+                <img src="assets/imagenes/instagram.svg" alt="Instagram">
+            </a>
+        </div>
+        <div class="w-6 h-6 relative">
+            <a (click)="goToSocial('LinkedIn')" href="javascript:void(0)" aria-label="LinkedIn">
+                <img src="assets/imagenes/linkedin.svg" alt="LoLinkedIngo">
+            </a>
+        </div>
     </div>
 </footer>
 
 <div *ngIf="policyDrawerOpen" (click)="closePolicyDrawer()"
-    class="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300">
+    class="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300" aria-hidden="true">
 </div>
 
-<div *ngIf="policyDrawerOpen"
+<div *ngIf="policyDrawerOpen" role="dialog" aria-modal="true" aria-labelledby="dialog-title"
     class="fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ease-out">
 
-    <div class="bg-white max-w-xl w-full h-[80vh] shadow-2xl rounded-xl transform transition-all duration-300 flex"
+    <div class="bg-white max-w-xl w-full h-[80vh] shadow-2xl rounded-xl 
+                transform transition-all duration-300 flex flex-col overflow-hidden"
         [ngClass]="{ 'opacity-100 scale-100': policyDrawerOpen, 'opacity-0 scale-95': !policyDrawerOpen }">
 
-        <div class="flex flex-col h-full w-full">
+        <div class="flex justify-between items-center p-5 border-b border-gray-100 flex-shrink-0">
+            <h3 id="dialog-title" class="text-xl font-semibold text-gray-900">Política de Tratamiento de Datos</h3>
+            <button (click)="closePolicyDrawer()" class="text-gray-500 hover:text-gray-700 transition"
+                aria-label="Cerrar política de datos">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
 
-            <div class="flex justify-between items-center p-5 border-b border-gray-100 flex-shrink-0">
-                <h3 class="text-xl font-semibold text-gray-900">Política de Tratamiento de Datos</h3>
-                <button (click)="closePolicyDrawer()" class="text-gray-500 hover:text-gray-700 transition"
-                    aria-label="Cerrar modal">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg>
-                </button>
-            </div>
+        <div class="flex-grow p-5 overflow-y-auto text-sm text-gray-700 whitespace-pre-line min-h-0">
+            {{ policyText }}
+        </div>
 
-            <div class="flex-grow p-5 overflow-y-auto text-sm text-gray-700 whitespace-pre-line **min-h-0**">
-                {{ policyText }}
-            </div>
-
-            <div class="p-5 border-t border-gray-100 flex justify-end flex-shrink-0">
-                <button (click)="closePolicyDrawer()"
-                    class="py-2 px-5 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-medium text-sm">
-                    Entendido
-                </button>
-            </div>
+        <div class="p-5 border-t border-gray-100 flex justify-end flex-shrink-0">
+            <button (click)="closePolicyDrawer()"
+                class="py-2 px-5 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-medium text-sm">
+                Entendido
+            </button>
         </div>
     </div>
 </div>

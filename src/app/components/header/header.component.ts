@@ -1,62 +1,192 @@
-import { Component } from '@angular/core';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Component, OnDestroy, Renderer2, Inject, HostListener } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
-// Definición de la interfaz para las notificaciones
 interface Notification {
-  id: number;
-  title: string;
-  time: string;
-  unread: boolean;
+    id: number;
+    cliente: string;
+    mensaje: string;
+    hora: string;
+    unread: boolean;
+}
+
+interface SubMenuItem {
+    name: string;
+    route: string;
+    selected: boolean;
+}
+
+interface MenuItem {
+    name: string;
+    route: string;
+    selected: boolean;
+    open: boolean;
+    subItems?: SubMenuItem[];
 }
 
 @Component({
-  selector: 'mf-layout-header',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'mf-layout-header',
+    standalone: true,
+    imports: [CommonModule, RouterModule],
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
+    menuOpen = false;
+    notificationsOpen = false;
+    private readonly bodyClass = 'overflow-hidden';
 
-  notificationsOpen = false;
+    menuItems: MenuItem[] = [
+        { name: 'Home', route: '/inicio', selected: true, open: false },
+        {
+            name: 'Gestión de envíos',
+            route: '/gestion',
+            selected: false,
+            open: false,
+            subItems: [
+                { name: 'Mis envíos', route: '/gestion/mis-envios', selected: false },
+                { name: 'Crear envío', route: '/gestion/crear-envio', selected: false },
+                { name: 'Cotizador', route: '/gestion/cotizador', selected: false },
+                { name: 'Histórico de recogidas', route: '/gestion/recogidas', selected: false },
+            ],
+        },
+        {
+            name: 'Inter Pay',
+            route: '/inter-pay',
+            selected: false,
+            open: false,
+        },
+        {
+            name: 'Pago en Casa',
+            route: '/pago-en-casa',
+            selected: false,
+            open: false,
+        },
+        {
+            name: 'Reportes',
+            route: '/reportes',
+            selected: false,
+            open: false,
+        },
+        {
+            name: 'Soporte',
+            route: '/soporte',
+            selected: false,
+            open: false,
+        },
+        { name: 'Donde encontrarnos', route: '/oficinas', selected: false, open: false },
+        {
+            name: 'Configuración',
+            route: '/configuracion',
+            selected: false,
+            open: false,
+            subItems: [
+                { name: 'Direcciones y sucursales', route: '/configuracion/misdirecciones', selected: false },
+                { name: 'Mis clientes', route: '/configuracion/misclientes', selected: false },
+                { name: 'Administrar', route: '/configuracion/administrar', selected: false },
+                { name: 'Facturación', route: '/configuracion/facturacion', selected: false },
+                { name: 'Método de pago', route: '/configuracion/metodopago', selected: false },
+            ],
+        },
+    ];
 
-  // Datos de simulación (5 ítems para cumplir lsimular las notificaciones)
-  notifications: Notification[] = [
-    { id: 1, title: 'Tu cliente Carlos Mario ya ingresó la información de destino. Ahora continúa para finalizar el envío.', time: 'Hoy 9:42 AM', unread: true },
-    { id: 2, title: 'Tu cliente Carlos Mario ya ingresó la información de destino. Ahora continúa para finalizar el envío.', time: 'Hoy 9:50 AM', unread: true },
-    { id: 3, title: 'Tu cliente Carlos Mario ya ingresó la información de destino. Ahora continúa para finalizar el envío.', time: 'Hoy 10:01 AM', unread: true },
-    { id: 4, title: 'Tu cliente Carlos Mario ya ingresó la información de destino. Ahora continúa para finalizar el envío.', time: 'Hoy 11:17 AM', unread: true },
-    { id: 5, title: 'Tu cliente Carlos Mario ya ingresó la información de destino. Ahora continúa para finalizar el envío.', time: 'Hoy 11:55 AM', unread: true },
-  ];
+    notifications: Notification[] = [
+        { id: 1, cliente: 'Carlos Mario', mensaje: 'ya ingresó la información de destino.', hora: 'Hoy 9:42 AM', unread: true },
+        { id: 2, cliente: 'Laura Gómez', mensaje: 'ha solicitado soporte.', hora: 'Hoy 9:50 AM', unread: true },
+        { id: 3, cliente: 'Pedro Ramírez', mensaje: 'ha realizado un nuevo pago.', hora: 'Hoy 10:15 AM', unread: false },
+    ];
 
-  //Propiedad calculada que verifica si existe al menos una notificación no leída.  
-  get hasUnreadNotifications(): boolean {
-    return this.notifications.some(n => n.unread);
-  }
+    constructor(
+        private renderer: Renderer2,
+        private router: Router,
+        @Inject(DOCUMENT) private document: Document
+    ) { }
 
-  // --- Funciones de Acción ---
-  goToHome(): void {
-    console.log('Navegando a la página de inicio');
-  }
-
-  toggleNotifications(): void {
-    this.notificationsOpen = !this.notificationsOpen;
-  }
-
-  goToProfile(): void {
-    console.log('Navegando a Mi Perfil');
-  }
-
-  logout(): void {
-    console.log('Cerrando sesión');
-  }
-
-  handleAction(action: 'Cancelar' | 'Crear', notificationId: number): void {
-    console.log(`Acción '${action}' realizada para la notificación ID: ${notificationId}`);
-    const notification = this.notifications.find(n => n.id === notificationId);
-    if (notification) {
-      notification.unread = false;
+    get hasUnreadNotifications(): boolean {
+        return this.notifications.some((n) => n.unread);
     }
-  }
+
+    toggleMenu(): void {
+        this.menuOpen = !this.menuOpen;
+        this.menuOpen
+            ? this.renderer.addClass(this.document.body, this.bodyClass)
+            : this.renderer.removeClass(this.document.body, this.bodyClass);
+    }
+
+    toggleSubMenu(item: MenuItem): void {
+        this.menuItems.forEach((i) => {
+            if (i !== item) i.open = false;
+        });
+        item.open = !item.open;
+    }
+
+    selectMenu(item: MenuItem): void {
+        this.clearSelections();
+
+        if (item.subItems) {
+            item.open = !item.open;
+            item.selected = false;
+        } else {
+            item.selected = true;
+            this.closeMenu();
+            this.router.navigate([item.route]);
+        }
+    }
+
+    selectSubMenu(parent: MenuItem, subItem: SubMenuItem): void {
+        this.clearSelections();
+        subItem.selected = true;
+        parent.open = true;
+        this.closeMenu();
+        this.router.navigate([subItem.route]);
+    }
+
+    clearSelections(): void {
+        this.menuItems.forEach((i) => {
+            i.selected = false;
+            if (i.subItems) i.subItems.forEach((s) => (s.selected = false));
+        });
+    }
+
+    closeMenu(): void {
+        this.menuOpen = false;
+        this.renderer.removeClass(this.document.body, this.bodyClass);
+    }
+
+    toggleNotifications(): void {
+        this.notificationsOpen = !this.notificationsOpen;
+        if (this.menuOpen && this.notificationsOpen) this.closeMenu();
+    }
+
+    closeNotifications(): void {
+        this.notificationsOpen = false;
+    }
+
+    handleAction(action: 'Cancelar' | 'Crear', id: number): void {
+        const notif = this.notifications.find((n) => n.id === id);
+        if (notif) notif.unread = false;
+    }
+
+    logout(): void {
+        console.log('Cerrar sesión');
+        this.closeMenu();
+        this.closeNotifications();
+        this.router.navigate(['/login']);
+    }
+
+    @HostListener('document:click', ['$event'])
+    onClickOutside(event: Event): void {
+        const target = event.target as HTMLElement;
+        if (
+            this.notificationsOpen &&
+            !target.closest('.notification-panel') &&
+            !target.closest('.notification-toggle')
+        ) {
+            this.closeNotifications();
+        }
+    }
+
+    ngOnDestroy(): void {
+        this.renderer.removeClass(this.document.body, this.bodyClass);
+    }
 }
