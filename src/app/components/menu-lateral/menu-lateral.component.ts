@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { CommonModule, NgClass, NgIf, NgFor } from '@angular/common';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 interface SubMenuItem {
   name: string;
@@ -18,14 +19,17 @@ interface MenuItem {
 @Component({
   selector: 'mf-layout-menu-lateral',
   standalone: true,
-  imports: [CommonModule, NgIf, NgClass, NgFor],
+  imports: [CommonModule],
   templateUrl: './menu-lateral.component.html',
   styleUrls: ['./menu-lateral.component.css']
 })
 export class MenuLateralComponent {
-  //Items y Subitems del menu
+  @Output() onLogout = new EventEmitter<void>();
+
+  constructor(private router: Router) { }
+
   menuItems: MenuItem[] = [
-    { name: 'Inicio', route: '/inicio', selected: true, open: false },
+    { name: 'Home', route: '/inicio', selected: true, open: false },
     {
       name: 'Gestión de envíos',
       route: '/gestion',
@@ -33,116 +37,90 @@ export class MenuLateralComponent {
       open: false,
       subItems: [
         { name: 'Mis envíos', route: '/gestion/mis-envios', selected: false },
-        { name: 'Sigue tu envío', route: '/gestion/sigue', selected: false },
-        { name: 'Crear / Admisión', route: '/gestion/crear', selected: false },
+        { name: 'Crear envío', route: '/gestion/crear-envio', selected: false },
         { name: 'Cotizador', route: '/gestion/cotizador', selected: false },
-        { name: 'Recogidas', route: '/gestion/recogidas', selected: false },
-      ]
+        { name: 'Histórico de recogidas', route: '/gestion/recogidas', selected: false },
+      ],
     },
     {
       name: 'Inter Pay',
       route: '/inter-pay',
       selected: false,
       open: false,
+    },
+    {
+      name: 'Pago en Casa',
+      route: '/pago-en-casa',
+      selected: false,
+      open: false,
+    },
+    {
+      name: 'Reportes',
+      route: '/reportes',
+      selected: false,
+      open: false,
+    },
+    {
+      name: 'Soporte',
+      route: '/soporte',
+      selected: false,
+      open: false,
+    },
+    { name: 'Donde encontrarnos', route: '/oficinas', selected: false, open: false },
+    {
+      name: 'Configuración',
+      route: '/configuracion',
+      selected: false,
+      open: false,
       subItems: [
-        { name: 'Descuento personalizado', route: '/inter-pay/descuento', selected: false },
-        { name: 'Recargar', route: '/inter-pay/recargar', selected: false },
-        { name: 'Transferir', route: '/inter-pay/transferir', selected: false },
-      ]
+        { name: 'Direcciones y sucursales', route: '/configuracion/misdirecciones', selected: false },
+        { name: 'Mis clientes', route: '/configuracion/misclientes', selected: false },
+        { name: 'Administrar', route: '/configuracion/administrar', selected: false },
+        { name: 'Facturación', route: '/configuracion/facturacion', selected: false },
+        { name: 'Método de pago', route: '/configuracion/metodopago', selected: false },
+      ],
     },
-    {
-      name: 'Reportes', route: '/reportes', selected: false, open: false, subItems: [
-        { name: 'Descuento personalizado', route: '/reportes/descuento', selected: false },
-        { name: 'Recargar', route: '/reportes/recargar', selected: false },
-        { name: 'Transferir', route: '/reportes/transferir', selected: false },
-      ]
-    },
-    {
-      name: 'Soporte', route: '/soporte', selected: false, open: false, subItems: [
-        { name: 'Servicio al cliente', route: '/Soporte/descuento', selected: false },
-        { name: 'Soporte técnico', route: '/Soporte/recargar', selected: false },
-        { name: 'PQR', route: '/Soporte/transferir', selected: false },
-      ]
-    },
-    { name: 'Oficinas cercanas', route: '/oficinas', selected: false, open: false },
-    { name: 'Configuración', route: '/configuracion', selected: false, open: false },
   ];
 
-  //Limpia el estado 'selected' de todos los elementos (principal y submenús).   
   clearAllSelections(): void {
     this.menuItems.forEach(i => {
       i.selected = false;
-      if (i.subItems) {
-        i.subItems.forEach(sub => sub.selected = false);
-      }
+      if (i.subItems) i.subItems.forEach(sub => sub.selected = false);
     });
   }
 
-  //Cierra todos los submenús.
   collapseAllDropdowns(): void {
     this.menuItems.forEach(i => i.open = false);
   }
 
-  /**
-   * Gestiona el clic en un elemento de Menú Principal.
-   * @param item El elemento de menú principal.
-   */
   toggleDropdown(item: MenuItem): void {
-
-    // Limpiamos todas las selecciones.
     this.clearAllSelections();
-
-    // Si el ítem actual tiene submenús, manejamos el despliegue/plegado.
     if (item.subItems) {
-
-      // ACORDEÓN PARCIAL: Cierra todos los demás menús antes de alternar el actual.
       this.menuItems.forEach(i => {
-        // Solo cerramos los demás si no son el elemento actual.
-        if (i !== item) {
-          i.open = false;
-        }
+        if (i !== item) i.open = false;
       });
-
-      // Alternamos el estado de despliegue del actual.
       item.open = !item.open;
-
     } else {
-      // Colapsa TODOS los submenús abiertos.
       this.collapseAllDropdowns();
-
-      // Aquí iría el Router.navigate(item.route) para cada una de las opciones del menú principal sin submenús.
+      this.router.navigate([item.route]);
     }
-
-    // Establecemos la selección en el ítem principal.
     item.selected = true;
   }
 
-  /**
-   * Gestiona el clic en un Submenú.
-   * @param parentItem El elemento principal padre.
-   * @param subItem El subelemento seleccionado.
-   */
   selectSubItem(parentItem: MenuItem, subItem: SubMenuItem): void {
-
-    // Limpiamos todas las selecciones.
     this.clearAllSelections();
-
-    // Lógica del Submenú (mantener desplegado el padre):
     this.menuItems.forEach(i => {
-      if (i !== parentItem) {
-        i.open = false;
-      }
+      if (i !== parentItem) i.open = false;
     });
-
-    // Marcamos el subelemento como seleccionado.
     subItem.selected = true;
-
-    // Marcamos el padre como seleccionado y FUERZA que se mantenga desplegado.
     parentItem.selected = true;
     parentItem.open = true;
+    this.router.navigate([subItem.route]);
+  }
 
-    // Aquí iría el Router.navigate(subItem.route) para cada una de las rutas del submenú.
+  logout(): void {
+    console.log('Logout desde menú lateral');
+    this.onLogout.emit();
+    this.router.navigate(['/login']);
   }
 }
-
-

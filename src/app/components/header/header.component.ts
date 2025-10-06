@@ -1,7 +1,6 @@
-import { Component, OnDestroy, Renderer2, Inject, HostListener, OnInit } from '@angular/core';
+import { Component, OnDestroy, Renderer2, Inject, HostListener } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Router, NavigationEnd, RouterModule } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router, RouterModule } from '@angular/router';
 
 interface Notification {
     id: number;
@@ -32,14 +31,13 @@ interface MenuItem {
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnDestroy {
     menuOpen = false;
     notificationsOpen = false;
     private readonly bodyClass = 'overflow-hidden';
 
-    // Menú principal temporal
     menuItems: MenuItem[] = [
-        { name: 'Inicio', route: '/inicio', selected: true, open: false },
+        { name: 'Home', route: '/inicio', selected: true, open: false },
         {
             name: 'Gestión de envíos',
             route: '/gestion',
@@ -47,10 +45,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
             open: false,
             subItems: [
                 { name: 'Mis envíos', route: '/gestion/mis-envios', selected: false },
-                { name: 'Sigue tu envío', route: '/gestion/sigue', selected: false },
-                { name: 'Crear / Admisión', route: '/gestion/crear', selected: false },
+                { name: 'Crear envío', route: '/gestion/crear-envio', selected: false },
                 { name: 'Cotizador', route: '/gestion/cotizador', selected: false },
-                { name: 'Recogidas', route: '/gestion/recogidas', selected: false },
+                { name: 'Histórico de recogidas', route: '/gestion/recogidas', selected: false },
             ],
         },
         {
@@ -58,93 +55,52 @@ export class HeaderComponent implements OnInit, OnDestroy {
             route: '/inter-pay',
             selected: false,
             open: false,
-            subItems: [
-                { name: 'Descuento personalizado', route: '/inter-pay/descuento', selected: false },
-                { name: 'Recargar', route: '/inter-pay/recargar', selected: false },
-                { name: 'Transferir', route: '/inter-pay/transferir', selected: false },
-            ],
+        },
+        {
+            name: 'Pago en Casa',
+            route: '/pago-en-casa',
+            selected: false,
+            open: false,
         },
         {
             name: 'Reportes',
             route: '/reportes',
             selected: false,
             open: false,
-            subItems: [
-                { name: 'Descuento personalizado', route: '/reportes/descuento', selected: false },
-                { name: 'Recargar', route: '/reportes/recargar', selected: false },
-                { name: 'Transferir', route: '/reportes/transferir', selected: false },
-            ],
         },
         {
             name: 'Soporte',
             route: '/soporte',
             selected: false,
             open: false,
+        },
+        { name: 'Donde encontrarnos', route: '/oficinas', selected: false, open: false },
+        {
+            name: 'Configuración',
+            route: '/configuracion',
+            selected: false,
+            open: false,
             subItems: [
-                { name: 'Servicio al cliente', route: '/soporte/descuento', selected: false },
-                { name: 'Soporte técnico', route: '/soporte/recargar', selected: false },
-                { name: 'PQR', route: '/soporte/transferir', selected: false },
+                { name: 'Direcciones y sucursales', route: '/configuracion/misdirecciones', selected: false },
+                { name: 'Mis clientes', route: '/configuracion/misclientes', selected: false },
+                { name: 'Administrar', route: '/configuracion/administrar', selected: false },
+                { name: 'Facturación', route: '/configuracion/facturacion', selected: false },
+                { name: 'Método de pago', route: '/configuracion/metodopago', selected: false },
             ],
         },
-        { name: 'Oficinas cercanas', route: '/oficinas', selected: false, open: false },
-        { name: 'Configuración', route: '/configuracion', selected: false, open: false },
     ];
 
-    // Notificaciones de prueba
     notifications: Notification[] = [
-        {
-            id: 1,
-            cliente: 'Carlos Mario',
-            mensaje: 'ya ingresó la información de destino. Ahora continúa para finalizar el envío.',
-            hora: 'Hoy 9:42 AM',
-            unread: true,
-        },
-        {
-            id: 2,
-            cliente: 'Laura Gómez',
-            mensaje: 'ha solicitado soporte en tu envío pendiente.',
-            hora: 'Hoy 9:50 AM',
-            unread: true,
-        },
-        {
-            id: 3,
-            cliente: 'Pedro Ramírez',
-            mensaje: 'ha realizado un nuevo pago en Inter Pay.',
-            hora: 'Hoy 10:15 AM',
-            unread: false,
-        },
-        {
-            id: 4,
-            cliente: 'Andrea Torres',
-            mensaje: 'ha creado una nueva solicitud de recogida.',
-            hora: 'Hoy 10:30 AM',
-            unread: true,
-        },
-        {
-            id: 5,
-            cliente: 'María Fernanda',
-            mensaje: 'ha finalizado un envío exitosamente.',
-            hora: 'Hoy 10:45 AM',
-            unread: false,
-        },
+        { id: 1, cliente: 'Carlos Mario', mensaje: 'ya ingresó la información de destino.', hora: 'Hoy 9:42 AM', unread: true },
+        { id: 2, cliente: 'Laura Gómez', mensaje: 'ha solicitado soporte.', hora: 'Hoy 9:50 AM', unread: true },
+        { id: 3, cliente: 'Pedro Ramírez', mensaje: 'ha realizado un nuevo pago.', hora: 'Hoy 10:15 AM', unread: false },
     ];
 
     constructor(
         private renderer: Renderer2,
-        @Inject(DOCUMENT) private document: Document,
-        private router: Router
+        private router: Router,
+        @Inject(DOCUMENT) private document: Document
     ) { }
-
-    ngOnInit(): void {
-
-        this.router.events
-            .pipe(filter((event) => event instanceof NavigationEnd))
-            .subscribe((event: any) => {
-                this.markActiveMenu(event.urlAfterRedirects);
-            });
-
-        this.markActiveMenu(this.router.url);
-    }
 
     get hasUnreadNotifications(): boolean {
         return this.notifications.some((n) => n.unread);
@@ -152,12 +108,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     toggleMenu(): void {
         this.menuOpen = !this.menuOpen;
-        if (this.menuOpen) {
-            this.renderer.addClass(this.document.body, this.bodyClass);
-        } else {
-            this.renderer.removeClass(this.document.body, this.bodyClass);
-            this.menuItems.forEach((item) => (item.open = false));
-        }
+        this.menuOpen
+            ? this.renderer.addClass(this.document.body, this.bodyClass)
+            : this.renderer.removeClass(this.document.body, this.bodyClass);
     }
 
     toggleSubMenu(item: MenuItem): void {
@@ -167,59 +120,58 @@ export class HeaderComponent implements OnInit, OnDestroy {
         item.open = !item.open;
     }
 
+    selectMenu(item: MenuItem): void {
+        this.clearSelections();
+
+        if (item.subItems) {
+            item.open = !item.open;
+            item.selected = false;
+        } else {
+            item.selected = true;
+            this.closeMenu();
+            this.router.navigate([item.route]);
+        }
+    }
+
+    selectSubMenu(parent: MenuItem, subItem: SubMenuItem): void {
+        this.clearSelections();
+        subItem.selected = true;
+        parent.open = true;
+        this.closeMenu();
+        this.router.navigate([subItem.route]);
+    }
+
+    clearSelections(): void {
+        this.menuItems.forEach((i) => {
+            i.selected = false;
+            if (i.subItems) i.subItems.forEach((s) => (s.selected = false));
+        });
+    }
+
+    closeMenu(): void {
+        this.menuOpen = false;
+        this.renderer.removeClass(this.document.body, this.bodyClass);
+    }
+
     toggleNotifications(): void {
         this.notificationsOpen = !this.notificationsOpen;
-
-        if (this.notificationsOpen && this.menuOpen) {
-            this.toggleMenu();
-        }
+        if (this.menuOpen && this.notificationsOpen) this.closeMenu();
     }
 
     closeNotifications(): void {
         this.notificationsOpen = false;
     }
 
-    handleAction(action: 'Cancelar' | 'Crear', notificationId: number): void {
-        console.log(`Acción '${action}' en notificación ID: ${notificationId}`);
-        const notif = this.notifications.find((n) => n.id === notificationId);
+    handleAction(action: 'Cancelar' | 'Crear', id: number): void {
+        const notif = this.notifications.find((n) => n.id === id);
         if (notif) notif.unread = false;
-
-        if (this.menuOpen) {
-            this.toggleMenu();
-        }
     }
 
-    selectMenu(item: MenuItem): void {
-        this.menuItems.forEach((i) => {
-            i.selected = false;
-            i.subItems?.forEach((s) => (s.selected = false));
-        });
-        item.selected = true;
-        this.menuOpen = false;
-        this.router.navigate([item.route]);
-    }
-
-    selectSubMenu(item: MenuItem, subItem: SubMenuItem): void {
-        this.menuItems.forEach((i) => {
-            i.selected = false;
-            i.subItems?.forEach((s) => (s.selected = false));
-        });
-        item.selected = true;
-        subItem.selected = true;
-        this.menuOpen = false;
-        this.router.navigate([subItem.route]);
-    }
-
-    private markActiveMenu(currentUrl: string): void {
-        this.menuItems.forEach((item) => {
-            item.selected = currentUrl.startsWith(item.route);
-            item.subItems?.forEach((sub) => {
-                sub.selected = currentUrl.startsWith(sub.route);
-                if (sub.selected) {
-                    item.selected = true;
-                }
-            });
-        });
+    logout(): void {
+        console.log('Cerrar sesión');
+        this.closeMenu();
+        this.closeNotifications();
+        this.router.navigate(['/login']);
     }
 
     @HostListener('document:click', ['$event'])
@@ -235,8 +187,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if (this.menuOpen) {
-            this.renderer.removeClass(this.document.body, this.bodyClass);
-        }
+        this.renderer.removeClass(this.document.body, this.bodyClass);
     }
 }
