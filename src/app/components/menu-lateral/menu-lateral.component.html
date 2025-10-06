@@ -1,42 +1,36 @@
-<aside class="w-64 bg-[#F9F9F9] text-gray-700 p-4 pt-6 flex-shrink-0">
-  
-  <nav class="flex flex-col space-y-1 text-sm"> 
-    
+<aside class="w-64 min-h-full bg-[#F9F9F9] text-gray-700 p-4 pt-6 flex-shrink-0">
+  <nav class="flex flex-col space-y-1 text-sm">
     <div *ngFor="let item of menuItems">
-      
-      <a [attr.href]="item.route" 
-         (click)="$event.preventDefault(); toggleDropdown(item)"
-         [ngClass]="{
-           'bg-gray-200 text-gray-800 font-medium': item.selected,
-           'hover:bg-gray-100': !item.selected 
-         }"
-         class="flex justify-between items-center p-2 rounded-xl transition duration-150 cursor-pointer">
-        
+      <a [attr.href]="item.route" (click)="$event.preventDefault(); toggleDropdown(item)" [ngClass]="{
+          'font-semibold': item.open && item.subItems,
+          'bg-[#F0EDFB] font-semibold': item.selected && !item.subItems
+        }"
+        class="flex justify-between items-center p-2 rounded-xl transition duration-150 cursor-pointer hover:bg-gray-100">
         <span>{{ item.name }}</span>
-        
-        <svg *ngIf="item.subItems" 
-             [ngClass]="{'rotate-180': item.open}"
-             class="w-4 h-4 text-gray-500 transition-transform duration-300" 
-             fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="item.open ? 'M5 15l7-7 7 7' : 'M19 9l-7 7-7-7'"></path>
+        <svg *ngIf="item.subItems" [ngClass]="{'rotate-180': item.open}"
+          class="w-4 h-4 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            [attr.d]="item.open ? 'M5 15l7-7 7 7' : 'M19 9l-7 7-7-7'"></path>
         </svg>
       </a>
-      
-      <div *ngIf="item.open && item.subItems" class="ml-4 py-1 space-y-0.5 transition-all duration-300 overflow-hidden">
-        
-        <a *ngFor="let subItem of item.subItems" 
-           [attr.href]="subItem.route"
-           (click)="$event.preventDefault(); selectSubItem(item, subItem)"
-           [ngClass]="{
-             'bg-gray-100 text-gray-800 font-medium': subItem.selected,
-             'hover:bg-gray-100': !subItem.selected
-           }"
-           class="flex items-center py-1.5 px-2 text-sm text-gray-600 rounded-lg transition duration-150 cursor-pointer">
+
+      <div *ngIf="item.open && item.subItems" class="ml-4 py-1 space-y-0.5">
+        <a *ngFor="let subItem of item.subItems" [attr.href]="subItem.route"
+          (click)="$event.preventDefault(); selectSubItem(item, subItem)"
+          [ngClass]="{'bg-[#F0EDFB] font-semibold': subItem.selected}"
+          class="flex items-center py-1.5 px-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100 transition cursor-pointer">
           {{ subItem.name }}
         </a>
       </div>
-
     </div>
-    
+
+    <div class="mt-6 border-t border-gray-300 pt-4">
+      <button (click)="logout()"
+        class="flex items-center text-[#A10303] hover:bg-gray-100 px-2 py-2 rounded-lg transition w-full text-left font-medium">
+        <img src="assets/imagenes/log-out-icon.svg" alt="Logout" class="w-5 h-5 mr-2" />
+        <span>Salir</span>
+      </button>
+    </div>
   </nav>
 </aside>
