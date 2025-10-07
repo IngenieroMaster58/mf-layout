@@ -2,19 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-interface SubMenuItem {
-  name: string;
-  route: string;
-  selected: boolean;
-}
-
-interface MenuItem {
-  name: string;
-  route: string;
-  selected: boolean;
-  open: boolean;
-  subItems?: SubMenuItem[];
-}
+import { MenuItem, SubMenuItem } from '@models';
 
 @Component({
   selector: 'mf-layout-menu-lateral',
@@ -28,6 +16,7 @@ export class MenuLateralComponent {
 
   constructor(private router: Router) { }
 
+  // 🧭 Estructura del menú lateral
   menuItems: MenuItem[] = [
     { name: 'Home', route: '/inicio', selected: true, open: false },
     {
@@ -42,30 +31,10 @@ export class MenuLateralComponent {
         { name: 'Histórico de recogidas', route: '/gestion/recogidas', selected: false },
       ],
     },
-    {
-      name: 'Inter Pay',
-      route: '/inter-pay',
-      selected: false,
-      open: false,
-    },
-    {
-      name: 'Pago en Casa',
-      route: '/pago-en-casa',
-      selected: false,
-      open: false,
-    },
-    {
-      name: 'Reportes',
-      route: '/reportes',
-      selected: false,
-      open: false,
-    },
-    {
-      name: 'Soporte',
-      route: '/soporte',
-      selected: false,
-      open: false,
-    },
+    { name: 'Inter Pay', route: '/inter-pay', selected: false, open: false },
+    { name: 'Pago en Casa', route: '/pago-en-casa', selected: false, open: false },
+    { name: 'Reportes', route: '/reportes', selected: false, open: false },
+    { name: 'Soporte', route: '/soporte', selected: false, open: false },
     { name: 'Donde encontrarnos', route: '/oficinas', selected: false, open: false },
     {
       name: 'Configuraciones',
@@ -82,6 +51,7 @@ export class MenuLateralComponent {
     },
   ];
 
+  /** 🔹 Limpia todas las selecciones */
   clearAllSelections(): void {
     this.menuItems.forEach(i => {
       i.selected = false;
@@ -89,35 +59,47 @@ export class MenuLateralComponent {
     });
   }
 
+  /** 🔹 Colapsa todos los submenús */
   collapseAllDropdowns(): void {
-    this.menuItems.forEach(i => i.open = false);
+    this.menuItems.forEach(i => (i.open = false));
   }
 
+  /** 🔹 Maneja el clic sobre un menú principal */
   toggleDropdown(item: MenuItem): void {
     this.clearAllSelections();
+
     if (item.subItems) {
+      // Cierra otros submenús
       this.menuItems.forEach(i => {
         if (i !== item) i.open = false;
       });
       item.open = !item.open;
     } else {
+      // Navega directamente
       this.collapseAllDropdowns();
       this.router.navigate([item.route]);
     }
+
     item.selected = true;
   }
 
+  /** 🔹 Maneja el clic sobre un submenú */
   selectSubItem(parentItem: MenuItem, subItem: SubMenuItem): void {
     this.clearAllSelections();
+
+    // Mantiene abierto el menú padre
     this.menuItems.forEach(i => {
       if (i !== parentItem) i.open = false;
     });
+
     subItem.selected = true;
     parentItem.selected = true;
     parentItem.open = true;
+
     this.router.navigate([subItem.route]);
   }
 
+  /** 🔹 Cerrar sesión (compartida con el header) */
   logout(): void {
     console.log('Logout desde menú lateral');
     this.onLogout.emit();

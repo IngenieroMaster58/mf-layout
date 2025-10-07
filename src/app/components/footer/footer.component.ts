@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FooterLink } from '@models';
 
 @Component({
   selector: 'mf-layout-footer',
@@ -10,11 +11,35 @@ import { CommonModule } from '@angular/common';
 })
 export class FooterComponent {
 
-  // Estado para controlar la visibilidad del modal
   policyDrawerOpen: boolean = false;
-
-  // Propiedad para almacenar el texto de la política
   policyText: string = this.generatePolicyText();
+
+  footerLinks: FooterLink[] = [
+    {
+      platform: 'YouTube',
+      url: 'https://www.youtube.com/user/interrapidisimo',
+      icon: 'assets/imagenes/youtube.svg',
+      alt: 'YouTube'
+    },
+    {
+      platform: 'Facebook',
+      url: 'https://www.facebook.com/interrapidisimo',
+      icon: 'assets/imagenes/facebook.svg',
+      alt: 'Facebook'
+    },
+    {
+      platform: 'Instagram',
+      url: 'https://www.instagram.com/interrapidisimo_co/',
+      icon: 'assets/imagenes/instagram.svg',
+      alt: 'Instagram'
+    },
+    {
+      platform: 'LinkedIn',
+      url: 'https://www.linkedin.com/company/inter-rapidisimo-s-a/',
+      icon: 'assets/imagenes/linkedin.svg',
+      alt: 'LinkedIn'
+    }
+  ];
 
   openPolicyDrawer(): void {
     this.policyDrawerOpen = true;
@@ -24,25 +49,16 @@ export class FooterComponent {
     this.policyDrawerOpen = false;
   }
 
-  private socialLinks: { [key: string]: string } = {
-    facebook: 'https://www.facebook.com/interrapidisimo',
-    twitter: 'https://twitter.com/interrapidisimo',
-    instagram: 'https://www.instagram.com/interrapidisimo_co/',
-    linkedin: 'https://www.linkedin.com/company/inter-rapidisimo-s-a/',
-    youtube: 'https://www.youtube.com/user/interrapidisimo'
-  };
-
   goToSocial(platform: string): void {
-    const url = this.socialLinks[platform.toLowerCase()];
-    if (url) {
-      window.open(url, '_blank', 'noopener noreferrer');
+    const link = this.footerLinks.find(f => f.platform.toLowerCase() === platform.toLowerCase());
+    if (link) {
+      window.open(link.url, '_blank', 'noopener noreferrer');
     } else {
       console.error(`La plataforma social '${platform}' no fue encontrada.`);
     }
   }
 
   private generatePolicyText(): string {
-    //Texto largo simulado para la política de datos
     const section1 = `1. Identificación y Contacto
 
 Interrapidísimo S.A.S., identificada con NIT 800.000.000-1, con domicilio principal en Bogotá D.C., es la responsable del tratamiento de los datos personales. Para consultas o reclamos, puede escribir a: datos.personales@interrapidisimo.com`;
@@ -59,8 +75,6 @@ El titular de los datos tiene derecho a: a) Conocer, actualizar y rectificar sus
 
 Para ejercer sus derechos, el titular debe presentar una solicitud formal, clara y precisa, a través del correo electrónico mencionado en el punto 1 o en la dirección física de nuestra sede principal. La respuesta a las consultas será dada en un término máximo de diez (10) días hábiles. Si la solicitud es un reclamo, el término es de quince (15) días hábiles.`;
 
-    const longContent = `${section1}\n\n${section2}\n\n${section3}\n\n${section4}`;
-
-    return longContent;
+    return `${section1}\n\n${section2}\n\n${section3}\n\n${section4}`;
   }
 }
