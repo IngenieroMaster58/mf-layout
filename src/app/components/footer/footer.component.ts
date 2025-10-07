@@ -17,7 +17,7 @@ export class FooterComponent {
   footerLinks: FooterLink[] = [
     {
       platform: 'YouTube',
-      url: 'https://www.youtube.com/user/interrapidisimo',
+      url: 'https://www.youtube.com/interrapidisimo',
       icon: 'assets/imagenes/youtube.svg',
       alt: 'YouTube'
     },

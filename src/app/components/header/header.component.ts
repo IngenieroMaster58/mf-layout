@@ -16,7 +16,6 @@ export class HeaderComponent implements OnDestroy {
     notificationsOpen = false;
     private readonly bodyClass = 'overflow-hidden';
 
-    // Menú principal
     menuItems: MenuItem[] = [
         { name: 'Home', route: '/inicio', selected: true, open: false },
         {
@@ -51,7 +50,6 @@ export class HeaderComponent implements OnDestroy {
         },
     ];
 
-    // Notificaciones
     notifications: Notification[] = [
         {
             id: 1,
@@ -70,12 +68,10 @@ export class HeaderComponent implements OnDestroy {
         @Inject(DOCUMENT) private document: Document
     ) { }
 
-    // 🔹 Getter: ¿Hay notificaciones sin leer?
     get hasUnreadNotifications(): boolean {
         return this.notifications.some((n) => n.unread);
     }
 
-    // 🔹 Abrir/cerrar menú lateral
     toggleMenu(): void {
         this.menuOpen = !this.menuOpen;
         this.menuOpen
@@ -83,7 +79,6 @@ export class HeaderComponent implements OnDestroy {
             : this.renderer.removeClass(this.document.body, this.bodyClass);
     }
 
-    // 🔹 Abrir/cerrar submenú
     toggleSubMenu(item: MenuItem): void {
         this.menuItems.forEach((i) => {
             if (i !== item) i.open = false;
@@ -91,7 +86,6 @@ export class HeaderComponent implements OnDestroy {
         item.open = !item.open;
     }
 
-    // 🔹 Seleccionar opción principal
     selectMenu(item: MenuItem): void {
         this.clearSelections();
 
@@ -105,7 +99,6 @@ export class HeaderComponent implements OnDestroy {
         }
     }
 
-    // 🔹 Seleccionar submenú
     selectSubMenu(parent: MenuItem, subItem: SubMenuItem): void {
         this.clearSelections();
         subItem.selected = true;
@@ -114,7 +107,6 @@ export class HeaderComponent implements OnDestroy {
         this.router.navigate([subItem.route]);
     }
 
-    // 🔹 Limpia selecciones
     clearSelections(): void {
         this.menuItems.forEach((i) => {
             i.selected = false;
@@ -122,13 +114,11 @@ export class HeaderComponent implements OnDestroy {
         });
     }
 
-    // 🔹 Cierra el menú
     closeMenu(): void {
         this.menuOpen = false;
         this.renderer.removeClass(this.document.body, this.bodyClass);
     }
 
-    // 🔹 Notificaciones
     toggleNotifications(): void {
         this.notificationsOpen = !this.notificationsOpen;
         if (this.menuOpen && this.notificationsOpen) this.closeMenu();
@@ -143,7 +133,6 @@ export class HeaderComponent implements OnDestroy {
         if (notif) notif.unread = false;
     }
 
-    // 🔹 Cerrar sesión compartido
     logout(): void {
         console.log('Cerrar sesión');
         this.closeMenu();
@@ -151,7 +140,6 @@ export class HeaderComponent implements OnDestroy {
         this.router.navigate(['/login']);
     }
 
-    // 🔹 Cerrar notificaciones al hacer clic fuera
     @HostListener('document:click', ['$event'])
     onClickOutside(event: Event): void {
         const target = event.target as HTMLElement;
