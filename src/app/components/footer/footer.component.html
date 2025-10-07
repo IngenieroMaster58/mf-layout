@@ -1,50 +1,73 @@
-<footer class="w-full h-16 px-14 py-2 left-0 top-0  bg-stone-50 inline-flex justify-between items-center">
-    <div class="w-24 justify-end items-center gap-2">
+<footer
+    class="mf-header-footer-w-full mf-header-footer-h-16 mf-header-footer-px-14 mf-header-footer-py-2 mf-header-footer-left-0 mf-header-footer-top-0 mf-header-footer-bg-stone-50 mf-header-footer-inline-flex mf-header-footer-justify-between mf-header-footer-items-center">
+
+    <!-- Política de datos -->
+    <div
+        class="mf-header-footer-w-24 mf-header-footer-justify-end mf-header-footer-items-center mf-header-footer-gap-2">
         <div data-con-icono="false" data-estado="Principal" data-tipo="Desktop"
-            class="flex-1 flex justify-start items-center gap-1">
+            class="mf-header-footer-flex-1 mf-header-footer-flex mf-header-footer-justify-start mf-header-footer-items-center mf-header-footer-gap-1">
             <button (click)="openPolicyDrawer()"
-                class="justify-start text-neutral-800 text-xs font-semibold font-['Prospero-Semibold']">Política de
-                datos</button>
+                class="mf-header-footer-justify-start mf-header-footer-text-neutral-800 mf-header-footer-text-xs mf-header-footer-font-semibold mf-header-footer-font-['Prospero-Semibold']">
+                Política de datos
+            </button>
         </div>
     </div>
-    <div class="flex justify-center items-end gap-6">
-        <div *ngFor="let link of footerLinks" class="w-6 h-6 relative">
+
+    <!-- Íconos de redes sociales -->
+    <div
+        class="mf-header-footer-flex mf-header-footer-justify-center mf-header-footer-items-end mf-header-footer-gap-6">
+        <div *ngFor="let link of footerLinks"
+            class="mf-header-footer-w-6 mf-header-footer-h-6 mf-header-footer-relative">
             <a (click)="goToSocial(link.platform)" href="javascript:void(0)" [attr.aria-label]="link.platform">
-                <img [src]="link.icon" [alt]="link.alt" class="w-full h-full object-contain" />
+                <img [src]="link.icon" [alt]="link.alt"
+                    class="mf-header-footer-w-full mf-header-footer-h-full mf-header-footer-object-contain" />
             </a>
         </div>
     </div>
 </footer>
 
+<!-- Backdrop -->
 <div *ngIf="policyDrawerOpen" (click)="closePolicyDrawer()"
-    class="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300" aria-hidden="true">
+    class="mf-header-footer-fixed mf-header-footer-inset-0 mf-header-footer-bg-black mf-header-footer-bg-opacity-50 mf-header-footer-z-40 mf-header-footer-transition-opacity mf-header-footer-duration-300"
+    aria-hidden="true">
 </div>
 
+<!-- modal de política de datos -->
 <div *ngIf="policyDrawerOpen" role="dialog" aria-modal="true" aria-labelledby="dialog-title"
-    class="fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ease-out">
+    class="mf-header-footer-fixed mf-header-footer-inset-0 mf-header-footer-z-50 mf-header-footer-flex mf-header-footer-items-center mf-header-footer-justify-center mf-header-footer-p-4 mf-header-footer-transition-all mf-header-footer-duration-300 mf-header-footer-ease-out">
 
-    <div class="bg-white max-w-xl w-full h-[80vh] shadow-2xl rounded-xl 
-                transform transition-all duration-300 flex flex-col overflow-hidden"
+    <div class="mf-header-footer-bg-white mf-header-footer-max-w-xl mf-header-footer-w-full mf-header-footer-h-[80vh] mf-header-footer-shadow-2xl mf-header-footer-rounded-xl mf-header-footer-transform mf-header-footer-transition-all mf-header-footer-duration-300 mf-header-footer-flex mf-header-footer-flex-col mf-header-footer-overflow-hidden"
         [ngClass]="{ 'opacity-100 scale-100': policyDrawerOpen, 'opacity-0 scale-95': !policyDrawerOpen }">
 
-        <div class="flex justify-between items-center p-5 border-b border-gray-100 flex-shrink-0">
-            <h3 id="dialog-title" class="text-xl font-semibold text-gray-900">Política de Tratamiento de Datos</h3>
-            <button (click)="closePolicyDrawer()" class="text-gray-500 hover:text-gray-700 transition"
+        <!-- Header del modal -->
+        <div
+            class="mf-header-footer-flex mf-header-footer-justify-between mf-header-footer-items-center mf-header-footer-p-5 mf-header-footer-border-b mf-header-footer-border-gray-100 mf-header-footer-flex-shrink-0">
+            <h3 id="dialog-title"
+                class="mf-header-footer-text-xl mf-header-footer-font-semibold mf-header-footer-text-gray-900">
+                Política de Tratamiento de Datos
+            </h3>
+            <button (click)="closePolicyDrawer()"
+                class="mf-header-footer-text-gray-500 mf-header-footer-hover:mf-header-footer-text-gray-700 mf-header-footer-transition"
                 aria-label="Cerrar política de datos">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="mf-header-footer-w-6 mf-header-footer-h-6" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                     </path>
                 </svg>
             </button>
         </div>
 
-        <div class="flex-grow p-5 overflow-y-auto text-sm text-gray-700 whitespace-pre-line min-h-0">
+        <!-- Contenido del modal -->
+        <div
+            class="mf-header-footer-flex-grow mf-header-footer-p-5 mf-header-footer-overflow-y-auto mf-header-footer-text-sm mf-header-footer-text-gray-700 mf-header-footer-whitespace-pre-line mf-header-footer-min-h-0">
             {{ policyText }}
         </div>
 
-        <div class="p-5 border-t border-gray-100 flex justify-end flex-shrink-0">
+        <!-- Botón de cierre -->
+        <div
+            class="mf-header-footer-p-5 mf-header-footer-border-t mf-header-footer-border-gray-100 mf-header-footer-flex mf-header-footer-justify-end mf-header-footer-flex-shrink-0">
             <button (click)="closePolicyDrawer()"
-                class="py-2 px-5 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-medium text-sm">
+                class="mf-header-footer-py-2 mf-header-footer-px-5 mf-header-footer-bg-gray-200 mf-header-footer-text-gray-800 mf-header-footer-rounded-lg mf-header-footer-hover:mf-header-footer-bg-gray-300 mf-header-footer-transition mf-header-footer-font-medium mf-header-footer-text-sm">
                 Entendido
             </button>
         </div>

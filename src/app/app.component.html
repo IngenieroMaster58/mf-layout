@@ -177,14 +177,14 @@
   }
 </style>
 
-<main class="main">
-  <div class="content">
-    <div class="left-side">
+<main class="mf-header-footer-main">
+  <div class="mf-header-footer-content">
+    <div class="mf-header-footer-left-side">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 982 239"
         fill="none"
-        class="angular-logo"
+        class="mf-header-footer-angular-logo"
       >
         <g clip-path="url(#a)">
           <path
@@ -228,9 +228,9 @@
       <h1>Hello, {{ title }}</h1>
       <p>Congratulations! Your app is running. 🎉</p>
     </div>
-    <div class="divider" role="separator" aria-label="Divider"></div>
-    <div class="right-side">
-      <div class="pill-group">
+    <div class="mf-header-footer-divider" role="separator" aria-label="Divider"></div>
+    <div class="mf-header-footer-right-side">
+      <div class="mf-header-footer-pill-group">
         @for (item of [
           { title: 'Explore the Docs', link: 'https://angular.dev' },
           { title: 'Learn with Tutorials', link: 'https://angular.dev/tutorials' },
@@ -239,7 +239,7 @@
           { title: 'Angular DevTools', link: 'https://angular.dev/tools/devtools' },
         ]; track item.title) {
           <a
-            class="pill"
+            class="mf-header-footer-pill"
             [href]="item.link"
             target="_blank"
             rel="noopener"
@@ -259,7 +259,7 @@
           </a>
         }
       </div>
-      <div class="social-links">
+      <div class="mf-header-footer-social-links">
         <a
           href="https://github.com/angular/angular"
           aria-label="Github"

@@ -10,32 +10,31 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet, HeaderComponent, FooterComponent, MenuLateralComponent, RouterModule],
   template: `
-    <div class="flex flex-col overflow-hidden min-h-screen">
+    <div class="mf-header-footer-flex mf-header-footer-flex-col mf-header-footer-overflow-hidden mf-header-footer-min-h-screen">
 
       <!-- HEADER -->
-      <mf-layout-header class="flex-shrink-0"></mf-layout-header>
+      <mf-layout-header class="mf-header-footer-flex-shrink-0"></mf-layout-header>
 
       <!-- CONTENIDO -->
-      <div class="flex flex-1 overflow-y-auto">
+      <div class="mf-header-footer-flex mf-header-footer-flex-1 mf-header-footer-overflow-y-auto">
 
         <!-- MENU LATERAL DESKTOP -->
-        <div class="hidden md:flex flex-shrink-0">
+        <div class="mf-header-footer-hidden md:mf-header-footer-flex mf-header-footer-flex-shrink-0">
           <mf-layout-menu-lateral></mf-layout-menu-lateral>
         </div>
 
         <!-- CONTENIDO PRINCIPAL -->
-        <div class="flex-1 flex flex-col min-h-full">          
+        <div class="mf-header-footer-flex-1 mf-header-footer-flex mf-header-footer-flex-col mf-header-footer-min-h-full">          
           <!-- MAIN CONTENT -->
-          <main class="flex-1 p-6 bg-gray-50">
+          <main class="mf-header-footer-flex-1 mf-header-footer-p-6 mf-header-footer-bg-gray-50">
             <router-outlet></router-outlet>
-            <div class="font-prospero font-bold text-[50px] h-[800px] leading-[100%] tracking-normal text-darktext">
+            <div class="mf-header-footer-font-prospero mf-header-footer-font-bold mf-header-footer-text-[50px] mf-header-footer-h-[800px] mf-header-footer-leading-[100%] mf-header-footer-tracking-normal mf-header-footer-text-darktext">
               Portal Clientes
             </div>
           </main>
 
           <!-- FOOTER -->
-          <mf-layout-footer class="flex-shrink-0"></mf-layout-footer>
-
+          <mf-layout-footer class="mf-header-footer-flex-shrink-0"></mf-layout-footer>
         </div>
       </div>
     </div>

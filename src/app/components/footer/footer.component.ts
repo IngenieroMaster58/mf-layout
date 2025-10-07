@@ -59,6 +59,7 @@ export class FooterComponent {
   }
 
   private generatePolicyText(): string {
+    //texto simulado de política de tratamiento de datos personales
     const section1 = `1. Identificación y Contacto
 
 Interrapidísimo S.A.S., identificada con NIT 800.000.000-1, con domicilio principal en Bogotá D.C., es la responsable del tratamiento de los datos personales. Para consultas o reclamos, puede escribir a: datos.personales@interrapidisimo.com`;

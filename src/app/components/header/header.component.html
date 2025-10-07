@@ -1,71 +1,90 @@
 <header
-  class="bg-[#F9F9F9] flex justify-between items-center shadow-md sticky top-0 z-30 h-[72px] md:h-[104px] px-4 md:px-8">
+  class="mf-header-footer-bg-[#F9F9F9] mf-header-footer-flex mf-header-footer-justify-between mf-header-footer-items-center mf-header-footer-shadow-md mf-header-footer-sticky mf-header-footer-top-0 mf-header-footer-z-30 mf-header-footer-h-[72px] md:mf-header-footer-h-[104px] mf-header-footer-px-4 md:mf-header-footer-px-8">
 
-  <div class="flex items-center space-x-2">
-    <button class="md:hidden" (click)="toggleMenu()" aria-label="Abrir/Cerrar menú">
-      <svg *ngIf="!menuOpen" class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <!-- Logo y menú hamburguesa -->
+  <div class="mf-header-footer-flex mf-header-footer-items-center mf-header-footer-space-x-2">
+    <button class="md:mf-header-footer-hidden" (click)="toggleMenu()" aria-label="Abrir/Cerrar menú">
+      <svg *ngIf="!menuOpen" class="mf-header-footer-w-6 mf-header-footer-h-6 mf-header-footer-text-gray-700"
+        fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
-      <svg *ngIf="menuOpen" class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg *ngIf="menuOpen" class="mf-header-footer-w-6 mf-header-footer-h-6 mf-header-footer-text-gray-700" fill="none"
+        stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
 
     <a routerLink="/">
-      <img src="assets/imagenes/logo.svg" alt="Logo" class="h-8 w-auto md:h-10" />
+      <img src="assets/imagenes/logo.svg" alt="Logo"
+        class="mf-header-footer-h-8 mf-header-footer-w-auto md:mf-header-footer-h-10" />
     </a>
   </div>
 
-  <nav class="flex items-center space-x-4 md:space-x-8 text-gray-600">
+  <!-- Menú principal -->
+  <nav
+    class="mf-header-footer-flex mf-header-footer-items-center mf-header-footer-space-x-4 md:mf-header-footer-space-x-8 mf-header-footer-text-gray-600">
 
-    <div class="hidden md:block relative w-[220px] lg:w-[284px] h-10">
+
+    <div
+      class="mf-header-footer-hidden md:mf-header-footer-block mf-header-footer-relative mf-header-footer-w-[220px] mf-header-footer-lg:mf-header-footer-w-[284px] mf-header-footer-h-10">
       <input type="text" placeholder="Busca la sección"
-        class="w-full h-full p-2 pl-10 rounded-lg text-sm bg-white border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 transition">
-      <svg class="w-5 h-5 absolute left-2.5 top-1/2 transform -translate-y-1/2 text-[#929292]" fill="none"
-        stroke="currentColor" viewBox="0 0 24 24">
+        class="mf-header-footer-w-full mf-header-footer-h-full mf-header-footer-p-2 mf-header-footer-pl-10 mf-header-footer-rounded-lg mf-header-footer-text-sm mf-header-footer-bg-white mf-header-footer-border mf-header-footer-border-gray-300 focus:mf-header-footer-outline-none focus:mf-header-footer-ring-1 focus:mf-header-footer-ring-blue-500 mf-header-footer-transition" />
+      <svg
+        class="mf-header-footer-w-5 mf-header-footer-h-5 mf-header-footer-absolute mf-header-footer-left-2.5 mf-header-footer-top-1/2 mf-header-footer-transform mf-header-footer--translate-y-1/2 mf-header-footer-text-[#929292]"
+        fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
     </div>
 
-    <div class="relative">
+    <!-- Notificaciones -->
+    <div class="mf-header-footer-relative">
       <button (click)="toggleNotifications()"
-        class="relative h-6 w-6 flex items-center justify-center notification-toggle">
-        <img src="assets/imagenes/Bell-Notification.svg" alt="Notification" class="h-5 w-auto" />
+        class="mf-header-footer-relative mf-header-footer-h-6 mf-header-footer-w-6 mf-header-footer-flex mf-header-footer-items-center mf-header-footer-justify-center notification-toggle">
+        <img src="assets/imagenes/Bell-Notification.svg" alt="Notification"
+          class="mf-header-footer-h-5 mf-header-footer-w-auto" />
         <div *ngIf="hasUnreadNotifications"
-          class="absolute -top-[1px] -right-[2px] h-2.5 w-2.5 bg-[#A10303] rounded-full border-2 border-white"></div>
+          class="mf-header-footer-absolute mf-header-footer--top-[1px] mf-header-footer--right-[2px] mf-header-footer-h-2.5 mf-header-footer-w-2.5 mf-header-footer-bg-[#A10303] mf-header-footer-rounded-full mf-header-footer-border-2 mf-header-footer-border-white">
+        </div>
       </button>
 
+      <!-- Panel de notificaciones -->
       <div *ngIf="notificationsOpen"
-        class="notification-panel absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-        <div class="p-3">
-          <h3 class="text-sm text-center font-bold text-gray-700">Notificaciones</h3>
+        class="notification-panel mf-header-footer-absolute mf-header-footer-right-0 mf-header-footer-mt-2 mf-header-footer-w-80 mf-header-footer-bg-white mf-header-footer-rounded-lg mf-header-footer-shadow-lg mf-header-footer-border mf-header-footer-border-gray-200 mf-header-footer-z-[9999]">
+        <div class="mf-header-footer-p-3">
+          <h3
+            class="mf-header-footer-text-sm mf-header-footer-text-center mf-header-footer-font-bold mf-header-footer-text-gray-700">
+            Notificaciones
+          </h3>
         </div>
 
-        <div class="max-h-[650px] overflow-y-auto">
-          <div *ngFor="let notif of notifications" class="px-4 py-3">
-            <div class="flex items-start space-x-3 relative">
+        <div class="mf-header-footer-max-h-[650px] mf-header-footer-overflow-y-auto">
+          <div *ngFor="let notif of notifications" class="mf-header-footer-px-4 mf-header-footer-py-3">
+            <div
+              class="mf-header-footer-flex mf-header-footer-items-start mf-header-footer-space-x-3 mf-header-footer-relative">
               <div
-                class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 relative">
-                <img src="assets/imagenes/user-icon.svg" alt="user" class="h-8 w-8 rounded-full bg-gray-200" />
+                class="mf-header-footer-h-8 mf-header-footer-w-8 mf-header-footer-rounded-full mf-header-footer-bg-gray-200 mf-header-footer-flex mf-header-footer-items-center mf-header-footer-justify-center mf-header-footer-text-xs mf-header-footer-font-bold mf-header-footer-text-gray-600 mf-header-footer-relative">
+                <img src="assets/imagenes/user-icon.svg" alt="user"
+                  class="mf-header-footer-h-8 mf-header-footer-w-8 mf-header-footer-rounded-full mf-header-footer-bg-gray-200" />
                 <span *ngIf="notif.unread"
-                  class="absolute -top-1 -right-1 h-2.5 w-2.5 bg-[#A10303] rounded-full border-2 border-white"></span>
+                  class="mf-header-footer-absolute mf-header-footer--top-1 mf-header-footer--right-1 mf-header-footer-h-2.5 mf-header-footer-w-2.5 mf-header-footer-bg-[#A10303] mf-header-footer-rounded-full mf-header-footer-border-2 mf-header-footer-border-white"></span>
               </div>
-              <div class="flex-1">
-                <p class="text-sm text-gray-800 leading-snug">
+              <div class="mf-header-footer-flex-1">
+                <p class="mf-header-footer-text-sm mf-header-footer-text-gray-800 mf-header-footer-leading-snug">
                   <strong>{{ notif.cliente }}</strong> {{ notif.mensaje }}
                 </p>
-                <div class="mt-2 flex space-x-2">
+                <div class="mf-header-footer-mt-2 mf-header-footer-flex mf-header-footer-space-x-2">
                   <button (click)="handleAction('Cancelar', notif.id)"
-                    class="flex-1 border border-gray-300 rounded-lg py-1 text-xs text-gray-700 hover:bg-gray-100">
+                    class="mf-header-footer-flex-1 mf-header-footer-border mf-header-footer-border-gray-300 mf-header-footer-rounded-lg mf-header-footer-py-1 mf-header-footer-text-xs mf-header-footer-text-gray-700 hover:mf-header-footer-bg-gray-100">
                     Cancelar
                   </button>
                   <button (click)="handleAction('Crear', notif.id)"
-                    class="flex-1 bg-[#212B36] text-white rounded-lg py-1 text-xs hover:bg-[#1A222B]">
+                    class="mf-header-footer-flex-1 mf-header-footer-bg-[#212B36] mf-header-footer-text-white mf-header-footer-rounded-lg mf-header-footer-py-1 mf-header-footer-text-xs hover:mf-header-footer-bg-[#1A222B]">
                     Crear
                   </button>
                 </div>
-                <p class="mt-1 text-xs text-gray-400">{{ notif.hora }}</p>
+                <p class="mf-header-footer-mt-1 mf-header-footer-text-xs mf-header-footer-text-gray-400">{{ notif.hora
+                  }}</p>
               </div>
             </div>
           </div>
@@ -73,10 +92,12 @@
       </div>
     </div>
 
+    <!-- Avatar -->
     <button (click)="goToProfile()"
-      class="h-8 w-8 flex items-center justify-center rounded-full bg-[#E0E0E0] text-sm text-black font-semibold hover:bg-gray-300 transition overflow-hidden">
+      class="mf-header-footer-h-8 mf-header-footer-w-8 mf-header-footer-flex mf-header-footer-items-center mf-header-footer-justify-center mf-header-footer-rounded-full mf-header-footer-bg-[#E0E0E0] mf-header-footer-text-sm mf-header-footer-text-black mf-header-footer-font-semibold hover:mf-header-footer-bg-gray-300 mf-header-footer-transition mf-header-footer-overflow-hidden">
       <ng-container *ngIf="userProfile?.avatarUrl; else initialsAvatar">
-        <img [src]="userProfile?.avatarUrl" [alt]="userProfile?.nombre" class="h-full w-full object-cover" />
+        <img [src]="userProfile?.avatarUrl" [alt]="userProfile?.nombre"
+          class="mf-header-footer-h-full mf-header-footer-w-full mf-header-footer-object-cover" />
       </ng-container>
       <ng-template #initialsAvatar>
         {{ userInitials }}
@@ -85,43 +106,52 @@
   </nav>
 </header>
 
-<div *ngIf="menuOpen" class="fixed inset-0 z-40 flex md:hidden">
+<!-- Menú móvil -->
+<div *ngIf="menuOpen"
+  class="mf-header-footer-fixed mf-header-footer-inset-0 mf-header-footer-z-40 mf-header-footer-flex md:mf-header-footer-hidden">
 
-  <div class="w-[70%] bg-white shadow-lg h-full overflow-y-auto animate-slideInLeft">
-    <nav class="flex flex-col py-4 h-full">
-      <div *ngFor="let item of menuItems" class="px-2">
+  <div
+    class="mf-header-footer-w-[70%] mf-header-footer-bg-white mf-header-footer-shadow-lg mf-header-footer-h-full mf-header-footer-overflow-y-auto mf-header-footer-animate-slideInLeft">
+    <nav class="mf-header-footer-flex mf-header-footer-flex-col mf-header-footer-py-4 mf-header-footer-h-full">
+      <div *ngFor="let item of menuItems" class="mf-header-footer-px-2">
         <a (click)="selectMenu(item)" [ngClass]="{
             'font-semibold': item.open && item.subItems,
-            'bg-[#F0EDFB] font-semibold': item.selected && !item.subItems
+            'mf-header-footer-bg-[#F0EDFB] mf-header-footer-font-semibold': item.selected && !item.subItems
           }"
-          class="flex justify-between items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-gray-100 transition cursor-pointer">
+          class="mf-header-footer-flex mf-header-footer-justify-between mf-header-footer-items-center mf-header-footer-px-4 mf-header-footer-py-3 mf-header-footer-text-gray-700 mf-header-footer-rounded-xl hover:mf-header-footer-bg-gray-100 mf-header-footer-transition mf-header-footer-cursor-pointer">
           <span>{{ item.name }}</span>
           <svg *ngIf="item.subItems" [ngClass]="{'rotate-180': item.open}"
-            class="w-4 h-4 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor"
-            viewBox="0 0 24 24">
+            class="mf-header-footer-w-4 mf-header-footer-h-4 mf-header-footer-text-gray-500 mf-header-footer-transition-transform mf-header-footer-duration-300"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
           </svg>
         </a>
 
-        <div *ngIf="item.open && item.subItems" class="ml-6 py-1 flex flex-col space-y-0.5">
+        <div *ngIf="item.open && item.subItems"
+          class="mf-header-footer-ml-6 mf-header-footer-py-1 mf-header-footer-flex mf-header-footer-flex-col mf-header-footer-space-y-0.5">
           <a *ngFor="let subItem of item.subItems" (click)="selectSubMenu(item, subItem)"
-            [ngClass]="{'bg-[#F0EDFB] font-semibold': subItem.selected}"
-            class="px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100 transition">
+            [ngClass]="{'mf-header-footer-bg-[#F0EDFB] mf-header-footer-font-semibold': subItem.selected}"
+            class="mf-header-footer-px-4 mf-header-footer-py-2 mf-header-footer-text-gray-600 mf-header-footer-rounded-lg hover:mf-header-footer-bg-gray-100 mf-header-footer-transition">
             {{ subItem.name }}
           </a>
         </div>
       </div>
 
-      <div class="mt-6 flex flex-col items-center pt-4 pb-6">
-        <div class="w-[90%] border-t border-gray-300 mb-4"></div>
+      <div
+        class="mf-header-footer-flex mf-header-footer-flex-col mf-header-footer-items-center mf-header-footer-pt-4 mf-header-footer-pb-6">
+        <div
+          class="mf-header-footer-w-[90%] mf-header-footer-border-t mf-header-footer-border-gray-300 mf-header-footer-mb-4">
+        </div>
         <button (click)="logout()"
-          class="flex items-center text-[#A10303] hover:bg-gray-100 px-6 py-2 rounded-xl transition w-full text-left font-medium">
-          <img src="assets/imagenes/log-out-icon.svg" alt="Logout" class="w-5 h-5 mr-2" />
+          class="mf-header-footer-flex mf-header-footer-items-center mf-header-footer-text-[#A10303] hover:mf-header-footer-bg-gray-100 mf-header-footer-px-6 mf-header-footer-py-2 mf-header-footer-rounded-xl mf-header-footer-transition mf-header-footer-w-full mf-header-footer-text-left mf-header-footer-font-medium">
+          <img src="assets/imagenes/log-out-icon.svg" alt="Logout"
+            class="mf-header-footer-w-5 mf-header-footer-h-5 mf-header-footer-mr-2" />
           <span>Salir</span>
         </button>
       </div>
     </nav>
   </div>
 
-  <div class="flex-1 bg-black bg-opacity-40" (click)="toggleMenu()"></div>
+  <div class="mf-header-footer-flex-1 mf-header-footer-bg-black mf-header-footer-bg-opacity-40" (click)="toggleMenu()">
+  </div>
 </div>

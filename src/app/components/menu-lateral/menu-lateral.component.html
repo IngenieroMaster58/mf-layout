@@ -1,34 +1,42 @@
-<aside class="w-64 min-h-full bg-[#F9F9F9] text-gray-700 p-4 pt-6 flex-shrink-0">
-  <nav class="flex flex-col space-y-1 text-sm">
+<aside
+  class="mf-header-footer-w-64 mf-header-footer-min-h-full mf-header-footer-bg-[#F9F9F9] mf-header-footer-text-gray-700 mf-header-footer-p-4 mf-header-footer-pt-6 mf-header-footer-flex-shrink-0">
+
+  <nav class="mf-header-footer-flex mf-header-footer-flex-col mf-header-footer-space-y-1 mf-header-footer-text-sm">
+
+    <!-- Iteración de elementos principales -->
     <div *ngFor="let item of menuItems">
       <a [attr.href]="item.route" (click)="$event.preventDefault(); toggleDropdown(item)" [ngClass]="{
-          'font-semibold': item.open && item.subItems,
-          'bg-[#F0EDFB] font-semibold': item.selected && !item.subItems
+          'mf-header-footer-font-semibold': item.open && item.subItems,
+          'mf-header-footer-bg-[#F0EDFB] font-semibold': item.selected && !item.subItems
         }"
-        class="flex justify-between items-center p-2 rounded-xl transition duration-150 cursor-pointer hover:bg-gray-100">
+        class="mf-header-footer-flex mf-header-footer-justify-between mf-header-footer-items-center mf-header-footer-p-2 mf-header-footer-rounded-xl mf-header-footer-transition mf-header-footer-duration-150 mf-header-footer-cursor-pointer mf-header-footer-hover:bg-gray-100">
         <span>{{ item.name }}</span>
-        <svg *ngIf="item.subItems" [ngClass]="{'rotate-180': item.open}"
-          class="w-4 h-4 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor"
-          viewBox="0 0 24 24">
+        <svg *ngIf="item.subItems" [ngClass]="{ 'rotate-180': item.open }"
+          class="mf-header-footer-w-4 mf-header-footer-h-4 mf-header-footer-text-gray-500 mf-header-footer-transition-transform mf-header-footer-duration-300"
+          fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             [attr.d]="item.open ? 'M5 15l7-7 7 7' : 'M19 9l-7 7-7-7'"></path>
         </svg>
       </a>
 
-      <div *ngIf="item.open && item.subItems" class="ml-4 py-1 space-y-0.5">
+      <!-- Submenú -->
+      <div *ngIf="item.open && item.subItems"
+        class="mf-header-footer-ml-4 mf-header-footer-py-1 mf-header-footer-space-y-0.5">
         <a *ngFor="let subItem of item.subItems" [attr.href]="subItem.route"
           (click)="$event.preventDefault(); selectSubItem(item, subItem)"
-          [ngClass]="{'bg-[#F0EDFB] font-semibold': subItem.selected}"
-          class="flex items-center py-1.5 px-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100 transition cursor-pointer">
+          [ngClass]="{ 'mf-header-footer-bg-[#F0EDFB] mf-header-footer-font-semibold': subItem.selected }"
+          class="mf-header-footer-flex mf-header-footer-items-center mf-header-footer-py-1.5 mf-header-footer-px-2 mf-header-footer-text-sm mf-header-footer-text-gray-600 mf-header-footer-rounded-lg mf-header-footer-hover:bg-gray-100 mf-header-footer-transition mf-header-footer-cursor-pointer">
           {{ subItem.name }}
         </a>
       </div>
     </div>
 
-    <div class="mt-6 border-t border-gray-300 pt-4">
+    <!-- Sección de cierre (logout) -->
+    <div class="mf-header-footer-border-t mf-header-footer-border-gray-300 mf-header-footer-pt-4 ">
       <button (click)="logout()"
-        class="flex items-center text-[#A10303] hover:bg-gray-100 px-2 py-2 rounded-lg transition w-full text-left font-medium">
-        <img src="assets/imagenes/log-out-icon.svg" alt="Logout" class="w-5 h-5 mr-2" />
+        class="mf-header-footer-flex mf-header-footer-items-center mf-header-footer-text-[#A10303] mf-header-footer-hover:bg-gray-100 mf-header-footer-px-2 mf-header-footer-py-2 mf-header-footer-rounded-lg mf-header-footer-transition mf-header-footer-w-full mf-header-footer-text-left mf-header-footer-font-medium">
+        <img src="assets/imagenes/log-out-icon.svg" alt="Logout"
+          class="mf-header-footer-w-5 mf-header-footer-h-5 mf-header-footer-mr-2" />
         <span>Salir</span>
       </button>
     </div>

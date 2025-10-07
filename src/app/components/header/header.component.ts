@@ -76,15 +76,15 @@ export class HeaderComponent implements OnDestroy {
         //Carga un cliente por defecto para pruebas
         this.userProfile = {
             id: 101,
-            nombre: 'Juan',
-            apellido: 'Martinez',
+            nombre: 'Pablo',
+            apellido: 'Torres',
             email: 'juan.martinez@cliente.com',
             avatarUrl: 'assets/imagenes/Iniciales JM.svg'
         };
     }
 
     get userInitials(): string {
-        //Obtienes las iniciales del usuario en caso que no tenga imagen para el avatar de perfil
+        //Obtiene y muestra las iniciales del usuario en caso que no tenga imagen para el avatar de perfil
         if (!this.userProfile) return '';
         const { nombre, apellido } = this.userProfile;
         return `${nombre[0] || ''}${apellido[0] || ''}`.toUpperCase();

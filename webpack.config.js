@@ -2,8 +2,8 @@ const { withModuleFederation } = require('@angular-architects/module-federation/
 
 module.exports = withModuleFederationPlugin({
 
-  name: 'mf_layout',
-
+  name: 'mf-header-footer',
+  filename: "remoteEntryMF_HeaderFooter.js",
   exposes: {
     './Header': './src/app/components/header/header.component.ts',
     './Footer': './src/app/components/footer/footer.component.ts',
@@ -11,14 +11,10 @@ module.exports = withModuleFederationPlugin({
   },
 
   shared: {
-    "@angular/core": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-    "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-    "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-  },
-
-  output: {
-    publicPath: "auto",
-    uniqueName: "mf_layout",
-    clean: true
+    ...shareAll({
+      singleton: true,
+      strictVersion: false,
+      requiredVersion: "auto",
+    }),
   },
 });

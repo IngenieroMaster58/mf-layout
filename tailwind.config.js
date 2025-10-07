@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  prefix: "mf-header-footer-",
   content: [
     "./src/**/*.{html,ts}",
   ],
