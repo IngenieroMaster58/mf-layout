@@ -155,6 +155,14 @@ export class HeaderComponent implements OnDestroy {
         if (notif) notif.unread = false;
     }
 
+    goToProfile(): void {
+        if (this.userProfile) {
+            this.closeMenu();
+            this.closeNotifications();
+            this.router.navigate(['/']);
+        }
+    }
+
     logout(): void {
         console.log('Cerrar sesión');
         this.closeMenu();

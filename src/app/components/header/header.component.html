@@ -72,8 +72,8 @@
         </div>
       </div>
     </div>
-    
-    <div
+
+    <button (click)="goToProfile()"
       class="h-8 w-8 flex items-center justify-center rounded-full bg-[#E0E0E0] text-sm text-black font-semibold hover:bg-gray-300 transition overflow-hidden">
       <ng-container *ngIf="userProfile?.avatarUrl; else initialsAvatar">
         <img [src]="userProfile?.avatarUrl" [alt]="userProfile?.nombre" class="h-full w-full object-cover" />
@@ -81,8 +81,7 @@
       <ng-template #initialsAvatar>
         {{ userInitials }}
       </ng-template>
-    </div>
-
+    </button>
   </nav>
 </header>
 
