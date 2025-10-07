@@ -19,6 +19,7 @@
 
   <!-- NAV -->
   <nav class="flex items-center space-x-4 md:space-x-8 text-gray-600">
+
     <!-- Buscador -->
     <div class="hidden md:block relative w-[220px] lg:w-[284px] h-10">
       <input type="text" placeholder="Busca la sección"
@@ -39,6 +40,7 @@
           class="absolute -top-[1px] -right-[2px] h-2.5 w-2.5 bg-[#A10303] rounded-full border-2 border-white"></div>
       </button>
 
+      <!-- Panel de notificaciones -->
       <div *ngIf="notificationsOpen"
         class="notification-panel absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
         <div class="p-3">
@@ -84,39 +86,45 @@
   </nav>
 </header>
 
-<div *ngIf="menuOpen"
-  class="fixed top-[72px] md:hidden left-0 w-full bg-white shadow-lg z-20 h-[calc(100vh-72px)] overflow-y-auto">
-  <nav class="flex flex-col py-4 px-4 space-y-1">
-    <div *ngFor="let item of menuItems">
-      <a (click)="selectMenu(item)" [ngClass]="{
-          'font-semibold text-gray-900': item.open && item.subItems,
-          'bg-[#F0EDFB] font-semibold': item.selected && !item.subItems
-        }"
-        class="flex justify-between items-center p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition cursor-pointer">
-        <span>{{ item.name }}</span>
-        <svg *ngIf="item.subItems" [ngClass]="{'rotate-180': item.open}"
-          class="w-4 h-4 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor"
-          viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-        </svg>
-      </a>
+<div *ngIf="menuOpen" class="fixed inset-0 z-40 flex md:hidden">
 
-      <div *ngIf="item.open && item.subItems" class="ml-4 py-1 flex flex-col space-y-0.5">
-        <a *ngFor="let subItem of item.subItems" (click)="selectSubMenu(item, subItem)"
-          [ngClass]="{'bg-[#F0EDFB] font-semibold': subItem.selected}"
-          class="flex items-center p-2 text-gray-600 rounded-lg hover:bg-gray-100 transition cursor-pointer">
-          {{ subItem.name }}
+  <div class="w-[70%] bg-white shadow-lg h-full overflow-y-auto animate-slideInLeft">
+    <nav class="flex flex-col py-4 h-full">
+      <div *ngFor="let item of menuItems" class="px-2">
+        <a (click)="selectMenu(item)" [ngClass]="{
+            'font-semibold': item.open && item.subItems,
+            'bg-[#F0EDFB] font-semibold': item.selected && !item.subItems
+          }"
+          class="flex justify-between items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-gray-100 transition cursor-pointer">
+          <span>{{ item.name }}</span>
+          <svg *ngIf="item.subItems" [ngClass]="{'rotate-180': item.open}"
+            class="w-4 h-4 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
         </a>
-      </div>
-    </div>
 
-    <!-- Logout -->
-    <div class="mt-4 border-t border-gray-300 pt-4">
-      <button (click)="logout()"
-        class="flex items-center text-[#A10303] hover:bg-gray-100 p-2 rounded-lg transition w-full text-left font-medium">
-        <img src="assets/imagenes/log-out-icon.svg" alt="Logout" class="w-5 h-5 mr-2" />
-        <span>Salir</span>
-      </button>
-    </div>
-  </nav>
+        <div *ngIf="item.open && item.subItems" class="ml-6 py-1 flex flex-col space-y-0.5">
+          <a *ngFor="let subItem of item.subItems" (click)="selectSubMenu(item, subItem)"
+            [ngClass]="{'bg-[#F0EDFB] font-semibold': subItem.selected}"
+            class="px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100 transition">
+            {{ subItem.name }}
+          </a>
+        </div>
+      </div>
+
+      <!-- Logout -->
+      <div class="mt-6 flex flex-col items-center pt-4 pb-6">
+        <div class="w-[90%] border-t border-gray-300 mb-4"></div>
+        <button (click)="logout()"
+          class="flex items-center text-[#A10303] hover:bg-gray-100 px-6 py-2 rounded-xl transition w-full text-left font-medium">
+          <img src="assets/imagenes/log-out-icon.svg" alt="Logout" class="w-5 h-5 mr-2" />
+          <span>Salir</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Backdrop -->
+  <div class="flex-1 bg-black bg-opacity-40" (click)="toggleMenu()"></div>
 </div>

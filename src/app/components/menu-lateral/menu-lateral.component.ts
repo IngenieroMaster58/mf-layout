@@ -68,16 +68,16 @@ export class MenuLateralComponent {
     },
     { name: 'Donde encontrarnos', route: '/oficinas', selected: false, open: false },
     {
-      name: 'Configuración',
-      route: '/configuracion',
+      name: 'Configuraciones',
+      route: '/configuraciones',
       selected: false,
       open: false,
       subItems: [
-        { name: 'Direcciones y sucursales', route: '/configuracion/misdirecciones', selected: false },
-        { name: 'Mis clientes', route: '/configuracion/misclientes', selected: false },
-        { name: 'Administrar', route: '/configuracion/administrar', selected: false },
-        { name: 'Facturación', route: '/configuracion/facturacion', selected: false },
-        { name: 'Método de pago', route: '/configuracion/metodopago', selected: false },
+        { name: 'Direcciones y sucursales', route: '/configuraciones/misdirecciones', selected: false },
+        { name: 'Mis clientes', route: '/configuraciones/misclientes', selected: false },
+        { name: 'Administrar', route: '/configuraciones/administrar', selected: false },
+        { name: 'Facturación', route: '/configuraciones/facturacion', selected: false },
+        { name: 'Método de pago', route: '/configuraciones/metodopago', selected: false },
       ],
     },
   ];

@@ -28,7 +28,7 @@ import { RouterModule } from '@angular/router';
           <!-- MAIN CONTENT -->
           <main class="flex-1 p-6 bg-gray-50">
             <router-outlet></router-outlet>
-            <div class="font-prospero font-bold text-[54px] h-[800px] leading-[100%] tracking-normal text-darktext">
+            <div class="font-prospero font-bold text-[50px] h-[800px] leading-[100%] tracking-normal text-darktext">
               Portal Clientes
             </div>
           </main>
