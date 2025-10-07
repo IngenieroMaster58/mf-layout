@@ -1,7 +1,6 @@
 <header
   class="bg-[#F9F9F9] flex justify-between items-center shadow-md sticky top-0 z-30 h-[72px] md:h-[104px] px-4 md:px-8">
 
-  <!-- Menú Hamburguesa + Logo -->
   <div class="flex items-center space-x-2">
     <button class="md:hidden" (click)="toggleMenu()" aria-label="Abrir/Cerrar menú">
       <svg *ngIf="!menuOpen" class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -17,10 +16,8 @@
     </a>
   </div>
 
-  <!-- NAV -->
   <nav class="flex items-center space-x-4 md:space-x-8 text-gray-600">
 
-    <!-- Buscador -->
     <div class="hidden md:block relative w-[220px] lg:w-[284px] h-10">
       <input type="text" placeholder="Busca la sección"
         class="w-full h-full p-2 pl-10 rounded-lg text-sm bg-white border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 transition">
@@ -31,7 +28,6 @@
       </svg>
     </div>
 
-    <!-- Notificaciones -->
     <div class="relative">
       <button (click)="toggleNotifications()"
         class="relative h-6 w-6 flex items-center justify-center notification-toggle">
@@ -40,7 +36,6 @@
           class="absolute -top-[1px] -right-[2px] h-2.5 w-2.5 bg-[#A10303] rounded-full border-2 border-white"></div>
       </button>
 
-      <!-- Panel de notificaciones -->
       <div *ngIf="notificationsOpen"
         class="notification-panel absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
         <div class="p-3">
@@ -77,12 +72,17 @@
         </div>
       </div>
     </div>
+    
+    <div
+      class="h-8 w-8 flex items-center justify-center rounded-full bg-[#E0E0E0] text-sm text-black font-semibold hover:bg-gray-300 transition overflow-hidden">
+      <ng-container *ngIf="userProfile?.avatarUrl; else initialsAvatar">
+        <img [src]="userProfile?.avatarUrl" [alt]="userProfile?.nombre" class="h-full w-full object-cover" />
+      </ng-container>
+      <ng-template #initialsAvatar>
+        {{ userInitials }}
+      </ng-template>
+    </div>
 
-    <!-- Avatar -->
-    <button
-      class="h-8 w-8 flex items-center justify-center rounded-full bg-[#E0E0E0] text-sm text-black font-semibold hover:bg-gray-300 transition">
-      JM
-    </button>
   </nav>
 </header>
 
@@ -113,7 +113,6 @@
         </div>
       </div>
 
-      <!-- Logout -->
       <div class="mt-6 flex flex-col items-center pt-4 pb-6">
         <div class="w-[90%] border-t border-gray-300 mb-4"></div>
         <button (click)="logout()"
@@ -125,6 +124,5 @@
     </nav>
   </div>
 
-  <!-- Backdrop -->
   <div class="flex-1 bg-black bg-opacity-40" (click)="toggleMenu()"></div>
 </div>

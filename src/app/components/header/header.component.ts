@@ -2,7 +2,7 @@ import { Component, OnDestroy, Renderer2, Inject, HostListener } from '@angular/
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
-import { MenuItem, SubMenuItem, Notification } from '@models';
+import { MenuItem, SubMenuItem, Notification, UserProfile } from '@models';
 
 @Component({
     selector: 'mf-layout-header',
@@ -15,6 +15,8 @@ export class HeaderComponent implements OnDestroy {
     menuOpen = false;
     notificationsOpen = false;
     private readonly bodyClass = 'overflow-hidden';
+
+    userProfile: UserProfile | null = null;
 
     menuItems: MenuItem[] = [
         { name: 'Home', route: '/inicio', selected: true, open: false },
@@ -66,7 +68,27 @@ export class HeaderComponent implements OnDestroy {
         private renderer: Renderer2,
         private router: Router,
         @Inject(DOCUMENT) private document: Document
-    ) { }
+    ) {
+        this.loadUserProfile();
+    }
+
+    private loadUserProfile(): void {
+        //Carga un cliente por defecto para pruebas
+        this.userProfile = {
+            id: 101,
+            nombre: 'Juan',
+            apellido: 'Martinez',
+            email: 'juan.martinez@cliente.com',
+            avatarUrl: 'assets/imagenes/Iniciales JM.svg'
+        };
+    }
+
+    get userInitials(): string {
+        //Obtienes las iniciales del usuario en caso que no tenga imagen para el avatar de perfil
+        if (!this.userProfile) return '';
+        const { nombre, apellido } = this.userProfile;
+        return `${nombre[0] || ''}${apellido[0] || ''}`.toUpperCase();
+    }
 
     get hasUnreadNotifications(): boolean {
         return this.notifications.some((n) => n.unread);
